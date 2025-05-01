@@ -24,23 +24,23 @@ Item {
     // Calculate dimensions based on the text content
     property var textDimensions: TextProcessing.getTextDimensions(processedOutput, "Monospace", fontSize)
     
-    // Auto-size the popup based on content
+    // Layout properties - let Plasma handle the sizing
     Layout.minimumWidth: Math.min(textDimensions.width + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 30)
     Layout.preferredWidth: Math.min(textDimensions.width + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 30)
-    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
+    Layout.maximumWidth: Kirigami.Units.gridUnit * 40
     
     Layout.minimumHeight: Math.min(textDimensions.height + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 20)
     Layout.preferredHeight: Math.min(textDimensions.height + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 20)
-    Layout.maximumHeight: Kirigami.Units.gridUnit * 20
+    Layout.maximumHeight: Kirigami.Units.gridUnit * 30
     
     Component.onCompleted: {
-        console.log("FullRepresentation created with command output: " + 
-            (commandOutput ? commandOutput.substring(0, 100) + (commandOutput.length > 100 ? "..." : "") : "none"));
+        console.log("FullRepresentation created with output length: " + commandOutput.length);
     }
     
+    // Manual watcher for command output changes
     onCommandOutputChanged: {
-        console.log("Command output changed: " + 
-            (commandOutput ? commandOutput.substring(0, 100) + (commandOutput.length > 100 ? "..." : "") : "none"));
+        console.log("Command output changed, length: " + commandOutput.length);
+        processedOutput = TextProcessing.cleanOutput(commandOutput);
     }
     
     // Background for the popup
@@ -53,31 +53,6 @@ Item {
         // Add a subtle border
         border.width: 1
         border.color: Kirigami.Theme.disabledTextColor
-    }
-    
-    // Refresh button at the top
-    PlasmaComponents.ToolButton {
-        id: refreshButton
-        icon.name: "view-refresh"
-        text: i18n("Refresh")
-        display: PlasmaComponents.ToolButton.IconOnly
-        
-        anchors {
-            top: parent.top
-            right: parent.right
-            margins: Kirigami.Units.smallSpacing
-        }
-        
-        onClicked: {
-            console.log("Refresh button clicked, executing command");
-            executeCommand();
-        }
-        
-        visible: !isExecuting
-        
-        ToolTip.text: i18n("Refresh output")
-        ToolTip.visible: hovered
-        ToolTip.delay: Kirigami.Units.toolTipDelay
     }
     
     // Loading indicator
@@ -115,8 +90,6 @@ Item {
             // Auto scroll to top when output changes
             onTextChanged: {
                 outputScrollView.contentItem.contentY = 0;
-                console.log("TextArea content changed: " + 
-                    (text ? text.substring(0, 100) + (text.length > 100 ? "..." : "") : "empty"));
             }
         }
     }
@@ -127,5 +100,30 @@ Item {
         text: i18n("No output")
         visible: !isExecuting && (!processedOutput || processedOutput === "")
         color: Kirigami.Theme.disabledTextColor
+    }
+    
+    // Refresh button at the top
+    PlasmaComponents.ToolButton {
+        id: refreshButton
+        icon.name: "view-refresh"
+        text: i18n("Refresh")
+        display: PlasmaComponents.ToolButton.IconOnly
+        
+        anchors {
+            top: parent.top
+            right: parent.right
+            margins: Kirigami.Units.smallSpacing
+        }
+        
+        onClicked: {
+            console.log("Refresh button clicked, executing command");
+            executeCommand();
+        }
+        
+        visible: !isExecuting
+        
+        ToolTip.text: i18n("Refresh output")
+        ToolTip.visible: hovered
+        ToolTip.delay: Kirigami.Units.toolTipDelay
     }
 } 

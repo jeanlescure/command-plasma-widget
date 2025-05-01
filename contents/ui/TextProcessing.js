@@ -15,7 +15,7 @@ function cleanOutput(text) {
 // Get estimated dimensions of text
 function getTextDimensions(text, fontFamily, fontSize) {
     if (!text) {
-        return { width: 0, height: 0 };
+        return { width: 100, height: 50 }; // Minimum size for empty text
     }
     
     const lines = text.split('\n');
@@ -30,14 +30,19 @@ function getTextDimensions(text, fontFamily, fontSize) {
     }
     
     // Ensure a minimum size for the popup
-    maxLineLength = Math.max(10, maxLineLength);
+    maxLineLength = Math.max(20, maxLineLength);
     
-    // Rough estimate of character width in pixels (this could be improved)
+    // Rough estimate of character width in pixels
+    // Monospace fonts are typically about 0.6x the font size in width
     const charWidth = fontSize * 0.6;
     
+    // Add some extra space to ensure text fits
+    const width = maxLineLength * charWidth * 1.05;
+    const height = lineCount * fontSize * 1.3;
+    
     return {
-        width: maxLineLength * charWidth,
-        height: lineCount * fontSize * 1.2
+        width: width,
+        height: height
     };
 }
 
@@ -55,4 +60,23 @@ function isCompactOutput(text) {
     }
     
     return false;
+}
+
+// Count visible lines (excluding empty lines at the end)
+function countLines(text) {
+    if (!text) {
+        return 0;
+    }
+    
+    // Split by newlines and filter out empty lines at the end
+    const lines = text.split('\n');
+    let count = 0;
+    
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i].trim() !== '' || i < lines.length - 1) {
+            count++;
+        }
+    }
+    
+    return count;
 } 

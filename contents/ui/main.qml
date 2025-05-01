@@ -80,10 +80,17 @@ PlasmoidItem {
             console.log("Command executed with exit code: " + exitCode);
             
             if (exitCode === 0) {
-                commandOutput = stdout;
-                console.log("Command output: " + stdout.substring(0, 100) + (stdout.length > 100 ? "..." : ""));
+                // Force property binding update
+                var newOutput = stdout;
+                commandOutput = "";  // Force a change
+                commandOutput = newOutput;
+                
+                console.log("Command output received, length: " + stdout.length);
             } else {
-                commandOutput = "Error: " + stderr;
+                var errorMsg = "Error: " + stderr;
+                commandOutput = "";  // Force a change
+                commandOutput = errorMsg;
+                
                 console.log("Command error: " + stderr);
             }
             
@@ -113,13 +120,20 @@ PlasmoidItem {
         if (command && command.trim() !== "") {
             executable.exec(command);
         } else {
-            commandOutput = i18n("No command configured. Right-click to configure.");
+            var msg = i18n("No command configured. Right-click to configure.");
+            commandOutput = "";  // Force a change
+            commandOutput = msg;
             isExecuting = false;
         }
     }
     
     function toggleExpanded() {
         root.expanded = !root.expanded;
+        
+        // If we're expanding, execute the command to get fresh data
+        if (root.expanded) {
+            executeCommand();
+        }
     }
     
     // Content that appears on the panel
@@ -167,6 +181,7 @@ PlasmoidItem {
             target: root
             function onCommandOutputChanged() {
                 if (fullLoader.item) {
+                    console.log("Updating output in loaded component");
                     fullLoader.item.commandOutput = root.commandOutput;
                 }
             }
