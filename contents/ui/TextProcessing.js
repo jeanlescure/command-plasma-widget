@@ -2,14 +2,24 @@
  * Utility functions for text processing in Command Plasma Widget
  */
 
+const boldNumberMap = [
+    "⓿", "➊", "➋", "➌", "➍", "➎", "➏", "➐", "➑", "➒"
+];
+
 // Ensure command output doesn't contain empty trailing whitespace/newlines
 function cleanOutput(text) {
     if (!text) {
         return "";
     }
-    
-    // Trim trailing/leading whitespace
-    return text.trim();
+
+    let sanitizedText = text.trim();
+    // Remove control characters except for newlines (\n)
+    sanitizedText = sanitizedText
+        .replace(/[\u0000-\u0009\u000B-\u001F\u007F-\u009F]/g, '\\');
+
+    console.log("Cleaning output: " + sanitizedText);
+
+    return sanitizedText;
 }
 
 // Get estimated dimensions of text

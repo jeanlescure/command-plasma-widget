@@ -183,6 +183,9 @@ PlasmoidItem {
                 if (fullLoader.item) {
                     console.log("Updating output in loaded component");
                     fullLoader.item.commandOutput = root.commandOutput;
+                    // var outputText = fullLoader.item.getOutputText();
+                    // fullLoader.item.width = outputText.contentWidth;
+                    // fullLoader.item.height = outputText.contentHeight;
                 }
             }
             function onIsExecutingChanged() {

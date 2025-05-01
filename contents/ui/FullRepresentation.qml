@@ -21,30 +21,28 @@ Item {
     // Font size for the output
     property int fontSize: Kirigami.Theme.defaultFont.pointSize
     
-    // Calculate dimensions based on the text content
-    property var textDimensions: TextProcessing.getTextDimensions(processedOutput, "Monospace", fontSize)
+    // Set a fixed size that matches the command output
+    // Use sensible defaults based on text size estimation
+    Layout.minimumWidth: 400
+    Layout.preferredWidth: 400
+    Layout.maximumWidth: 600
     
-    // Layout properties - let Plasma handle the sizing
-    Layout.minimumWidth: Math.min(textDimensions.width + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 30)
-    Layout.preferredWidth: Math.min(textDimensions.width + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 30)
-    Layout.maximumWidth: Kirigami.Units.gridUnit * 40
-    
-    Layout.minimumHeight: Math.min(textDimensions.height + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 20)
-    Layout.preferredHeight: Math.min(textDimensions.height + Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 20)
-    Layout.maximumHeight: Kirigami.Units.gridUnit * 30
-    
-    Component.onCompleted: {
-        console.log("FullRepresentation created with output length: " + commandOutput.length);
+    Layout.minimumHeight: 200
+    Layout.preferredHeight: 200
+    Layout.maximumHeight: 400
+
+    // Dummy function that can be called from main.qml
+    function getOutputText() {
+        return outputText;
     }
     
-    // Manual watcher for command output changes
-    onCommandOutputChanged: {
-        console.log("Command output changed, length: " + commandOutput.length);
-        processedOutput = TextProcessing.cleanOutput(commandOutput);
+    Component.onCompleted: {
+        console.log("FullRepresentation created");
     }
     
     // Background for the popup
     Rectangle {
+        id: background
         anchors.fill: parent
         color: Kirigami.Theme.backgroundColor
         opacity: 0.95
