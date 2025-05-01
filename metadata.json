@@ -1,0 +1,19 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "jeanlescure@example.com",
+                "Name": "Jean Lescure"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "Execute CLI commands and display their output in a borderless popup",
+        "Icon": "utilities-terminal",
+        "Id": "com.jeanlescure.commandplasma",
+        "Name": "Command Plasma",
+        "Version": "1.0",
+        "Website": "https://github.com/jeanlescure/command-plasma-widget"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "KPackageStructure": "Plasma/Applet"
+} 
