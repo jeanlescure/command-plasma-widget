@@ -2,20 +2,18 @@
  * Utility functions for text processing in Command Plasma Widget
  */
 
-const boldNumberMap = [
-    "⓿", "➊", "➋", "➌", "➍", "➎", "➏", "➐", "➑", "➒"
-];
-
 // Ensure command output doesn't contain empty trailing whitespace/newlines
 function cleanOutput(text) {
     if (!text) {
         return "";
     }
 
-    let sanitizedText = text.trim();
+    let sanitizedText = `<pre>${text}</pre>`;
     // Remove control characters except for newlines (\n)
     sanitizedText = sanitizedText
-        .replace(/[\u0000-\u0009\u000B-\u001F\u007F-\u009F]/g, '\\');
+        .replace(/[\u0000-\u0009\u000B-\u001F\u007F-\u009F]/g, '\\')
+        .replace(/_\\(\d)/g, (match, a) => `<b style="text-decoration: underline;">${a}</b>`)
+    ;
 
     console.log("Cleaning output: " + sanitizedText);
 

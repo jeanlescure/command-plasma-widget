@@ -19,7 +19,7 @@ Item {
     property string processedOutput: TextProcessing.cleanOutput(commandOutput)
     
     // Font size for the output
-    property int fontSize: Kirigami.Theme.defaultFont.pointSize
+    property int fontSize: Kirigami.Theme.defaultFont.pointSize + 1
     
     // Set a fixed size that matches the command output
     // Use sensible defaults based on text size estimation
@@ -77,14 +77,15 @@ Item {
             font.family: "Monospace"
             font.pointSize: fontSize
             color: Kirigami.Theme.textColor
-            
+            textFormat: TextEdit.RichText
+
             // Use word wrap only for compact outputs 
             wrapMode: TextProcessing.isCompactOutput(processedOutput) ? TextEdit.Wrap : TextEdit.NoWrap
-            
+
             background: Rectangle {
                 color: "transparent"
             }
-            
+
             // Auto scroll to top when output changes
             onTextChanged: {
                 outputScrollView.contentItem.contentY = 0;

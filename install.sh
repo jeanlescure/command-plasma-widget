@@ -36,9 +36,9 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Restarting Plasma..."
     if command -v kquitapp6 &> /dev/null; then
-        kquitapp6 plasmashell && plasmashell &
+        kquitapp6 plasmashell; plasmashell &
     else
-        kquitapp5 plasmashell && plasmashell &
+        kquitapp5 plasmashell; plasmashell &
     fi
     echo "Plasma restarted."
 fi
