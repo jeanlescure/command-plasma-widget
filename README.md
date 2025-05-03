@@ -21,6 +21,7 @@ A KDE Plasma 6 panel widget that lets you run custom CLI commands and display th
 ```
 3. Add the widget to your panel
 
+<!--
 ### From Release Package
 
 1. Download the latest `.plasmoid` file from the releases page
@@ -28,6 +29,7 @@ A KDE Plasma 6 panel widget that lets you run custom CLI commands and display th
 ```
 kpackagetool6 -t Plasma/Applet -i command-plasma-1.0.plasmoid
 ```
+-->
 
 ## Usage
 
@@ -41,16 +43,14 @@ kpackagetool6 -t Plasma/Applet -i command-plasma-1.0.plasmoid
 
 You can add multiple instances of the widget to your panel, each with its own command and icon.
 
-## Example Commands
+## HTML Output Formatting
 
-Here are some useful commands you might want to try:
+The widget supports basic HTML formatting in command output. You can make your command print HTML to enhance the display:
 
-- System temperature: `sensors | grep temp`
-- CPU usage: `top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4 + $6 + $10 + $12 + $14 + $16}' | awk '{print "CPU: " $1 "%"}'`
-- Memory usage: `free -h | grep "Mem:" | awk '{print "Memory: " $3 " / " $2}'`
-- Disk usage: `df -h | grep /dev/sda1 | awk '{print "Disk: " $5 " used"}'`
-- IP address: `ip addr show | grep -w inet | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -d/ -f1`
-- Date and time: `date "+%Y-%m-%d %H:%M:%S"`
+- **Bold text**: `<b>bold text</b>`
+- **Colored text**: `<span style="color: #FF5733;">colored text</span>`
+- **Underlined text**: `<u>underlined text</u>`
+- **Combinations**: `<b><span style="color: #33FF57;">bold green text</span></b>`
 
 ## Configuration Options
 
@@ -65,4 +65,4 @@ Contributions are welcome! Please feel free to submit pull requests or report is
 
 ## License
 
-This project is licensed under the terms of the GNU General Public License v3.0. 
+This project is licensed under the terms of the Apache License v2.0
