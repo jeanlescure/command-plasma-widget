@@ -7,7 +7,7 @@
             }
         ],
         "Category": "System Information",
-        "Description": "Execute CLI commands and display their output in a borderless popup",
+        "Description": "Execute CLI commands and display their output in a popup",
         "Icon": "utilities-terminal",
         "Id": "com.jeanlescure.commandplasma",
         "Name": "Command Plasma",
