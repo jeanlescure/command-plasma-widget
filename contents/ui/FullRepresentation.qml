@@ -48,9 +48,9 @@ Item {
         opacity: 0.95
         radius: Kirigami.Units.smallSpacing
         
-        // Add a subtle border
-        border.width: 1
-        border.color: Kirigami.Theme.disabledTextColor
+        // // Add a subtle border
+        // border.width: 1
+        // border.color: Kirigami.Theme.disabledTextColor
     }
     
     // Loading indicator
@@ -76,6 +76,7 @@ Item {
             readOnly: true
             font.family: "Monospace"
             font.pointSize: fontSize
+            padding: 25
             color: Kirigami.Theme.textColor
             textFormat: TextEdit.RichText
 

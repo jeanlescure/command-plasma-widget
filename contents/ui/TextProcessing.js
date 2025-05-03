@@ -8,11 +8,15 @@ function cleanOutput(text) {
         return "";
     }
 
-    let sanitizedText = `<pre>${text}</pre>`;
+    let sanitizedText = `<pre><div>${text}</div></pre>`;
     // Remove control characters except for newlines (\n)
     sanitizedText = sanitizedText
         .replace(/[\u0000-\u0009\u000B-\u001F\u007F-\u009F]/g, '\\')
-        .replace(/_\\(\d)/g, (match, a) => `<b style="text-decoration: underline;">${a}</b>`)
+        .replace(/_\\(\d{0,1})/g, (match, a) => `<b style="text-decoration: underline; color: #00FF00">${a}</b>`)
+        .replace(
+            /\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s(\d{4})\s+/g,
+            (match) => `</div><div style="line-height: 1.5;"><b>${match}</b>`
+        )
     ;
 
     console.log("Cleaning output: " + sanitizedText);
