@@ -10,6 +10,14 @@ A KDE Plasma 6 panel widget that lets you run custom CLI commands and display th
 - Configure refresh intervals for automatic command execution
 - Each widget instance has its own independent configuration
 
+## Like this project? ❤
+
+Please consider:
+
+- [Buying me a coffee](https://ko-fi.com/jeanlescure) ☕
+- Supporting me on [Patreon](https://www.patreon.com/jeanlescure) 🏆
+- Starring this repo on [Github](https://github.com/simplyhexagonal/command-plasma-widget) 🌟
+
 ## Installation
 
 ### From Source
